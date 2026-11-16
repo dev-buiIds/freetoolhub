@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter - FreeToolHub</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #f7f8fc;
+  color: #182033;
+}
+
+.wrap {
+  max-width: 850px;
+  margin: auto;
+  padding: 25px 18px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  gap: 12px;
+}
+
+.brand {
+  color: #202844;
+  font-size: 22px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brand b {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(140deg,#3478f6,#7542e9);
+  color: white;
+  margin-right: 8px;
+}
+
+.back {
+  color: #5947d8;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.hero {
+  margin: 30px 0;
+}
+
+.eyebrow {
+  color: #7054dd;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: 36px;
+  margin: 9px 0;
+}
+
+.desc {
+  color: #737b8d;
+  line-height: 1.6;
+}
+
+.panel {
+  background: white;
+  border: 1px solid #e8eaf2;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 8px 26px #1c2a4a0b;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #46506a;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #dfe3ed;
+  border-radius: 10px;
+  font: inherit;
+  background: white;
+  color: #182033;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #7054dd;
+}
+
+.currency-row {
+  display: grid;
+  grid-template-columns: 1fr 55px 1fr;
+  gap: 12px;
+  align-items: end;
+}
+
+.currency-box {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.flag-img {
+  width: 34px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+  flex-shrink: 0;
+  background: #f1f2f6;
+}
+
+.currency-box select {
+  min-width: 0;
+  flex: 1;
+}
+
+.swap {
+  height: 46px;
+  border: 0;
+  border-radius: 10px;
+  background: #edf0ff;
+  color: #5947d8;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(110deg,#3478f6,#853ee7);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f4f5ff;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.result strong {
+  display: block;
+  color: #5142c8;
+  font-size: 26px;
+  margin-top: 5px;
+}
+
+.muted {
+  color: #81899a;
+  font-size: 13px;
+}
+
+.status {
+  margin: 12px 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.search-note {
+  margin-top: 7px;
+  font-size: 12px;
+  color: #858b9a;
+}
+
+footer {
+  text-align: center;
+  padding: 35px 0 15px;
+  color: #8a90a0;
+  font-size: 13px;
+}
+
+@media(max-width:600px) {
+  .currency-row {
+    grid-template-columns: 1fr;
+  }
+
+  .swap {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 29px;
+  }
+
+  .panel {
+    padding: 17px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="wrap">
+
+<header class="top">
+  <a class="brand" href="index.html">
+    <b>⚙</b>FreeToolHub
+  </a>
+  <a class="back" href="index.html">← Back Home</a>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Free Currency Tool</div>
+  <h1>Currency Converter</h1>
+  <p class="desc">
+    Convert supported currencies from around the world.
+    Search currencies by name or code.
+  </p>
+</section>
+
+<section class="panel">
+
+  <div class="field">
+    <label for="amount">Enter Amount</label>
+    <input
+      type="number"
+      id="amount"
+      value="1"
+      min="0"
+      step="any"
+      placeholder="Enter amount"
+    >
+  </div>
+
+  <div class="currency-row">
+
+    <div class="field">
+      <label for="fromSearch">From Currency</label>
+
+      <input
+        id="fromSearch"
+        type="search"
+        placeholder="Search currency..."
+        list="currencyList"
+        autocomplete="off"
+      >
+
+      <div class="currency-box">
+        <img id="fromFlag" class="flag-img" alt="From country flag">
+        <select id="fromCurrency" aria-label="From currency">
+          <option value="">Loading...</option>
+        </select>
+      </div>
+
+      <div class="search-note">Search by country, currency or code</div>
+    </div>
+
+    <button class="swap" id="swapBtn" title="Swap currencies">
+      ⇄
+    </button>
+
+    <div class="field">
+      <label for="toSearch">To Currency</label>
+
+      <input
+        id="toSearch"
+        type="search"
+        placeholder="Search currency..."
+        list="currencyList"
+        autocomplete="off"
+      >
+
+      <div class="currency-box">
+        <img id="toFlag" class="flag-img" alt="To country flag">
+        <select id="toCurrency" aria-label="To currency">
+          <option value="">Loading...</option>
+        </select>
+      </div>
+
+      <div class="search-note">Search by country, currency or code</div>
+    </div>
+
+  </div>
+
+  <datalist id="currencyList"></datalist>
+
+  <p class="status" id="status" aria-live="polite">
+    Loading supported currencies...
+  </p>
+
+  <button class="btn" id="convertBtn" disabled>
+    Convert Currency
+  </button>
+
+  <div class="result" id="result" aria-live="polite">
+    Your conversion result will appear here.
+  </div>
+
+</section>
+
+<footer>
+  © 2026 FreeToolHub. Free tools for everyone.
+</footer>
+
+</main>
+
+<script>
+const API = "https://api.frankfurter.dev/v1";
+
+const countryFlags = {
+  AED:"ae", AFN:"af", ALL:"al", AMD:"am",
+  ANG:"cw", AOA:"ao", ARS:"ar", AUD:"au",
+  AWG:"aw", AZN:"az", BAM:"ba", BBD:"bb",
+  BDT:"bd", BGN:"bg", BHD:"bh", BIF:"bi",
+  BMD:"bm", BND:"bn", BOB:"bo", BRL:"br",
+  BSD:"bs", BTN:"bt", BWP:"bw", BYN:"by",
+  BZD:"bz", CAD:"ca", CDF:"cd", CHF:"ch",
+  CLP:"cl", CNY:"cn", COP:"co", CRC:"cr",
+  CUP:"cu", CVE:"cv", CZK:"cz", DJF:"dj",
+  DKK:"dk", DOP:"do", DZD:"dz", EGP:"eg",
+  ERN:"er", ETB:"et", EUR:"eu", FJD:"fj",
+  GBP:"gb", GEL:"ge", GHS:"gh", GMD:"gm",
+  GNF:"gn", GTQ:"gt", GYD:"gy", HKD:"hk",
+  HNL:"hn", HTG:"ht", HUF:"hu", IDR:"id",
+  ILS:"il", INR:"in", IQD:"iq", IRR:"ir",
+  ISK:"is", JMD:"jm", JOD:"jo", JPY:"jp",
+  KES:"ke", KGS:"kg", KHR:"kh", KMF:"km",
+  KPW:"kp", KRW:"kr", KWD:"kw", KZT:"kz",
+  LAK:"la", LBP:"lb", LKR:"lk", LRD:"lr",
+  LSL:"ls", LYD:"ly", MAD:"ma", MDL:"md",
+  MGA:"mg", MKD:"mk", MMK:"mm", MNT:"mn",
+  MOP:"mo", MRU:"mr", MUR:"mu", MVR:"mv",
+  MWK:"mw", MXN:"mx", MYR:"my", MZN:"mz",
+  NAD:"na", NGN:"ng", NIO:"ni", NOK:"no",
+  NPR:"np", NZD:"nz", OMR:"om", PAB:"pa",
+  PEN:"pe", PGK:"pg", PHP:"ph", PKR:"pk",
+  PLN:"pl", PYG:"py", QAR:"qa", RON:"ro",
+  RSD:"rs", RUB:"ru", RWF:"rw", SAR:"sa",
+  SBD:"sb", SCR:"sc", SDG:"sd", SEK:"se",
+  SGD:"sg", SLE:"sl", SOS:"so", SRD:"sr",
+  SSP:"ss", STN:"st", SYP:"sy", SZL:"sz",
+  THB:"th", TJS:"tj", TMT:"tm", TND:"tn",
+  TOP:"to", TRY:"tr", TTD:"tt", TWD:"tw",
+  TZS:"tz", UAH:"ua", UGX:"ug", USD:"us",
+  UYU:"uy", UZS:"uz", VES:"ve", VND:"vn",
+  VUV:"vu", WST:"ws", XAF:"cm", XCD:"ag",
+  XOF:"sn", XPF:"pf", YER:"ye", ZAR:"za",
+  ZMW:"zm", ZWL:"zw"
+};
+
+const from = document.getElementById("fromCurrency");
+const to = document.getElementById("toCurrency");
+const fromSearch = document.getElementById("fromSearch");
+const toSearch = document.getElementById("toSearch");
+const amount = document.getElementById("amount");
+const result = document.getElementById("result");
+const status = document.getElementById("status");
+const convertBtn = document.getElementById("convertBtn");
+const currencyList = document.getElementById("currencyList");
+
+let currencies = {};
+
+function flagUrl(code) {
+  const country = countryFlags[code];
+
+  if (!country) {
+    return "https://flagcdn.com/w40/un.png";
+  }
+
+  return `https://flagcdn.com/w40/${country}.png`;
+}
+
+function updateFlags() {
+  if (from.value) {
+    document.getElementById("fromFlag").src = flagUrl(from.value);
+  }
+
+  if (to.value) {
+    document.getElementById("toFlag").src = flagUrl(to.value);
+  }
+}
+
+function updateSearchLabels() {
+  fromSearch.value = from.value
+    ? `${currencies[from.value]} (${from.value})`
+    : "";
+
+  toSearch.value = to.value
+    ? `${currencies[to.value]} (${to.value})`
+    : "";
+
+  updateFlags();
+}
+
+function createOptions() {
+  const entries = Object.entries(currencies)
+    .sort((a,b) => a[0].localeCompare(b[0]));
+
+  from.innerHTML = "";
+  to.innerHTML = "";
+  currencyList.innerHTML = "";
+
+  entries.forEach(([code,name]) => {
+    const option1 = document.createElement("option");
+    option1.value = code;
+    option1.textContent = `${name} (${code})`;
+    from.appendChild(option1);
+
+    const option2 = document.createElement("option");
+    option2.value = code;
+    option2.textContent = `${name} (${code})`;
+    to.appendChild(option2);
+
+    const searchOption = document.createElement("option");
+    searchOption.value = `${name} (${code})`;
+    currencyList.appendChild(searchOption);
+  });
+
+  from.value = currencies.INR ? "INR" : entries[0][0];
+  to.value = currencies.USD ? "USD" : entries[1]?.[0];
+
+  updateSearchLabels();
+}
+
+function findCurrency(searchText) {
+  const text = searchText.trim().toLowerCase();
+
+  return Object.entries(currencies).find(([code,name]) => {
+    return (
+      code.toLowerCase() === text ||
+      name.toLowerCase() === text ||
+      `${name} (${code})`.toLowerCase() === text ||
+      `${code} - ${name}`.toLowerCase() === text
+    );
+  })?.[0] || null;
+}
+
+fromSearch.addEventListener("change", () => {
+  const code = findCurrency(fromSearch.value);
+
+  if (code) {
+    from.value = code;
+  }
+
+  updateSearchLabels();
+});
+
+toSearch.addEventListener("change", () => {
+  const code = findCurrency(toSearch.value);
+
+  if (code) {
+    to.value = code;
+  }
+
+  updateSearchLabels();
+});
+
+from.addEventListener("change", updateSearchLabels);
+to.addEventListener("change", updateSearchLabels);
+
+async function loadCurrencies() {
+  try {
+    status.textContent = "Loading supported currencies...";
+
+    const response = await fetch(`${API}/currencies`);
+
+    if (!response.ok) {
+      throw new Error("Currency list could not be loaded.");
+    }
+
+    currencies = await response.json();
+
+    if (!Object.keys(currencies).length) {
+      throw new Error("No currencies were returned.");
+    }
+
+    createOptions();
+
+    convertBtn.disabled = false;
+
+    status.textContent =
+      `${Object.keys(currencies).length} supported currencies loaded.`;
+
+  } catch (error) {
+    status.textContent =
+      "Could not load currencies: " + error.message;
+
+    result.textContent =
+      "Please check your internet connection and refresh the page.";
+  }
+}
+
+async function convertCurrency() {
+  const fromCode = from.value;
+  const toCode = to.value;
+  const value = Number(amount.value);
+
+  if (!fromCode || !toCode) {
+    result.textContent = "Please select both currencies.";
+    return;
+  }
+
+  if (!Number.isFinite(value) || value <= 0) {
+    result.textContent = "Please enter a valid amount.";
+    return;
+  }
+
+  if (fromCode === toCode) {
+    result.innerHTML = `
+      <div>${currencies[fromCode]} (${fromCode})</div>
+      <strong>${value.toLocaleString()} ${toCode}</strong>
+      <div class="muted">Both currencies are the same.</div>
+    `;
+    return;
+  }
+
+  convertBtn.disabled = true;
+  convertBtn.textContent = "Converting...";
+  result.textContent = "Getting exchange rate...";
+
+  try {
+    const url =
+      `${API}/latest?base=${encodeURIComponent(fromCode)}` +
+      `&symbols=${encodeURIComponent(toCode)}`;
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Exchange rate unavailable for this pair.");
+    }
+
+    const data = await response.json();
+    const rate = data.rates?.[toCode];
+
+    if (typeof rate !== "number") {
+      throw new Error("Rate not found.");
+    }
+
+    const converted = value * rate;
+
+    result.innerHTML = `
+      <div>
+        ${currencies[fromCode]} (${fromCode})
+      </div>
+
+      <div class="muted">Converts to</div>
+
+      <strong>
+        ${converted.toLocaleString(undefined, {
+          maximumFractionDigits: 4
+        })} ${toCode}
+      </strong>
+
+      <div class="muted">
+        1 ${fromCode} = ${rate} ${toCode}
+      </div>
+
+      <div class="muted">
+        Rate date: ${data.date}
+      </div>
+    `;
+
+  } catch (error) {
+    result.textContent =
+      "Could not get rate: " + error.message;
+
+  } finally {
+    convertBtn.disabled = false;
+    convertBtn.textContent = "Convert Currency";
+  }
+}
+
+convertBtn.addEventListener("click", convertCurrency);
+
+document.getElementById("swapBtn").addEventListener("click", () => {
+  const oldFrom = from.value;
+
+  from.value = to.value;
+  to.value = oldFrom;
+
+  updateSearchLabels();
+});
+
+document.getElementById("fromFlag").addEventListener("error", function() {
+  this.src = "https://flagcdn.com/w40/un.png";
+});
+
+document.getElementById("toFlag").addEventListener("error", function() {
+  this.src = "https://flagcdn.com/w40/un.png";
+});
+
+loadCurrencies();
+</script>
+
+</body>
+</html>

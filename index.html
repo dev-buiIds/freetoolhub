@@ -1,0 +1,713 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FreeToolHub - Free Online Tools</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fc;
+    color: #171b2c;
+}
+
+.container {
+    max-width: 1450px;
+    margin: auto;
+    padding: 32px 24px;
+}
+
+/* HEADER */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+.logo-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(145deg, #3478f6, #7542e9);
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 12px rgba(91, 85, 220, .24);
+}
+
+/* PREMIUM GEAR LOGO */
+
+.gear-svg {
+    width: 28px;
+    height: 28px;
+    overflow: visible;
+    animation: slowGearRotation 12s linear infinite;
+    transform-origin: center;
+}
+
+.gear-svg path {
+    fill: url(#gearGradient);
+    stroke: #ffffffee;
+    stroke-width: 0.8;
+    stroke-linejoin: round;
+}
+
+.gear-svg circle {
+    fill: #7c5dfa;
+    stroke: #ffffff;
+    stroke-width: 2.0;
+}
+
+@keyframes slowGearRotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* RESPECT REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    .gear-svg {
+        animation: none;
+    }
+}
+
+/* STATS */
+
+.stats {
+    display: flex;
+    gap: 25px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    color: #3976e8;
+    font-size: 23px;
+}
+
+.stat span {
+    color: #777;
+    font-size: 12px;
+}
+
+/* INTRO */
+
+h1 {
+    font-size: clamp(26px, 4vw, 38px);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #737989;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 27px;
+}
+
+/* SEARCH */
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    padding: 17px 20px;
+    border-radius: 15px;
+    border: 1px solid #e9eaf0;
+    box-shadow: 0 5px 18px rgba(20,30,60,.07);
+    margin-bottom: 23px;
+}
+
+.search-box span {
+    font-size: 21px;
+    color: #777;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    color: #222;
+    background: transparent;
+}
+
+/* FILTERS */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    border: none;
+    background: white;
+    padding: 12px 19px;
+    border-radius: 11px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4d5363;
+    transition: .2s;
+}
+
+.filter-btn:hover {
+    background: #eef1ff;
+}
+
+.filter-btn.active {
+    color: white;
+    background: linear-gradient(110deg, #3478f6, #853ee7);
+    box-shadow: 0 4px 12px rgba(90,80,220,.2);
+}
+
+/* TOOL GRID */
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.tool-card {
+    background: white;
+    padding: 20px;
+    min-height: 205px;
+    border-radius: 17px;
+    border: 1px solid #eceef3;
+    box-shadow: 0 4px 12px rgba(20,30,60,.04);
+    transition: .2s;
+    cursor: pointer;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(30,40,80,.09);
+    border-color: #d8dfff;
+}
+
+.tool-icon {
+    width: 62px;
+    height: 62px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    font-size: 30px;
+    margin-bottom: 17px;
+}
+
+.blue { background: #dff0ff; }
+.green { background: #dcf8e8; }
+.purple { background: #eee4ff; }
+.orange { background: #fff0d8; }
+.pink { background: #ffe2ec; }
+.cyan { background: #d9f8f7; }
+
+.tool-card h3 {
+    font-size: 15px;
+    margin-bottom: 7px;
+    line-height: 1.4;
+}
+
+.category {
+    color: #9095a2;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    font-size: 11px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #e4f9ed;
+    color: #25854d;
+}
+
+.tag.popular {
+    background: #fff5d9;
+    color: #97731b;
+}
+
+.empty {
+    display: none;
+    text-align: center;
+    padding: 60px 15px;
+    color: #777;
+}
+
+.empty h2 {
+    margin-bottom: 10px;
+    color: #252b3b;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+    padding: 45px 10px 15px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 1100px) {
+    .tools-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media(max-width: 750px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .container {
+        padding: 22px 14px;
+    }
+
+    .tool-card {
+        padding: 15px;
+        min-height: 190px;
+    }
+
+    .header {
+        align-items: flex-start;
+    }
+}
+
+@media(max-width: 380px) {
+    .stats {
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+
+                <svg class="gear-svg"
+                     viewBox="0 0 100 100"
+                     xmlns="http://www.w3.org/2000/svg">
+
+                    <defs>
+                        <linearGradient id="gearGradient"
+                            x1="0%" y1="0%"
+                            x2="100%" y2="100%">
+
+                            <stop offset="0%" stop-color="#ffffff"/>
+                            <stop offset="50%" stop-color="#e5eaff"/>
+                            <stop offset="100%" stop-color="#ffffff"/>
+
+                        </linearGradient>
+                    </defs>
+
+                    <path d="
+                    M40 4
+                    H60
+                    L64 16
+                    Q69 17 74 20
+                    L85 14
+                    L96 31
+                    L87 41
+                    Q89 50 87 59
+                    L96 69
+                    L85 86
+                    L74 80
+                    Q69 83 64 84
+                    L60 96
+                    H40
+                    L36 84
+                    Q31 83 26 80
+                    L15 86
+                    L4 69
+                    L13 59
+                    Q11 50 13 41
+                    L4 31
+                    L15 14
+                    L26 20
+                    Q31 17 36 16
+                    Z
+                    "/>
+
+                    <circle cx="50" cy="50" r="19"/>
+
+                </svg>
+
+            </div>
+
+            FreeToolHub
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <strong id="toolCount">18</strong>
+                <span>Tools</span>
+            </div>
+
+            <div class="stat">
+                <strong>3</strong>
+                <span>Categories</span>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- INTRO -->
+
+    <h1>Free Online Tools for Productivity & More</h1>
+
+    <p class="subtitle">
+        Access free online tools including PDF editors,
+        calculators and productivity utilities. No registration required.
+    </p>
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <span>⌕</span>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search for tools... (e.g. PDF converter, calculator)"
+        >
+
+    </div>
+
+    <!-- CATEGORY FILTERS -->
+
+    <div class="filters">
+
+        <button class="filter-btn active" data-category="All">
+            All Tools
+        </button>
+
+        <button class="filter-btn" data-category="PDF">
+            ▤ PDF
+        </button>
+
+        <button class="filter-btn" data-category="Calculators">
+            ▦ Calculators
+        </button>
+
+        <button class="filter-btn" data-category="Productivity">
+            ⚡ Productivity
+        </button>
+
+    </div>
+
+    <!-- TOOLS GRID -->
+
+    <div class="tools-grid" id="toolsGrid">
+
+        <div class="tool-card" data-category="PDF">
+            <div class="tool-icon blue">📄</div>
+            <h3>PDF Converter</h3>
+            <p class="category">PDF</p>
+            <div class="tags">
+                <span class="tag popular">☆ Popular</span>
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="PDF">
+            <div class="tool-icon green">📑</div>
+            <h3>PDF Merger & Splitter</h3>
+            <p class="category">PDF</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="PDF">
+            <div class="tool-icon purple">🖉</div>
+            <h3>PDF Editor</h3>
+            <p class="category">PDF</p>
+            <div class="tags">
+                <span class="tag popular">☆ Popular</span>
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="PDF">
+            <div class="tool-icon orange">🗜️</div>
+            <h3>PDF Compressor</h3>
+            <p class="category">PDF</p>
+            <div class="tags">
+                <span class="tag popular">☆ Popular</span>
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="PDF">
+            <div class="tool-icon pink">🔒</div>
+            <h3>PDF Security</h3>
+            <p class="category">PDF</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Calculators">
+            <div class="tool-icon blue">⚖️</div>
+            <h3>BMI Calculator</h3>
+            <p class="category">Calculators</p>
+            <div class="tags">
+                <span class="tag popular">☆ Popular</span>
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Calculators">
+            <div class="tool-icon pink">🎂</div>
+            <h3>Age Calculator</h3>
+            <p class="category">Calculators</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Productivity">
+            <div class="tool-icon green">💱</div>
+            <h3>Currency Converter</h3>
+            <p class="category">Productivity</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Productivity">
+            <div class="tool-icon purple">📏</div>
+            <h3>Unit Converter</h3>
+            <p class="category">Productivity</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Calculators">
+            <div class="tool-icon orange">💰</div>
+            <h3>Tax Calculator</h3>
+            <p class="category">Calculators</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Calculators">
+            <div class="tool-icon orange">💯</div>
+            <h3>Percentage Calculator</h3>
+            <p class="category">Calculators</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Calculators">
+            <div class="tool-icon purple">🏦</div>
+            <h3>Loan Calculator</h3>
+            <p class="category">Calculators</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Productivity">
+            <div class="tool-icon blue">📝</div>
+            <h3>Word Counter</h3>
+            <p class="category">Productivity</p>
+            <div class="tags">
+                <span class="tag popular">☆ Popular</span>
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Productivity">
+            <div class="tool-icon green">🔠</div>
+            <h3>Case Converter</h3>
+            <p class="category">Productivity</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Productivity">
+            <div class="tool-icon pink">🖼️</div>
+            <h3>Image Resizer</h3>
+            <p class="category">Productivity</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Productivity">
+            <div class="tool-icon orange">🗜️</div>
+            <h3>Image Compressor</h3>
+            <p class="category">Productivity</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Productivity">
+            <div class="tool-icon cyan">🔗</div>
+            <h3>QR Code Generator</h3>
+            <p class="category">Productivity</p>
+            <div class="tags">
+                <span class="tag popular">☆ Popular</span>
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="Productivity">
+            <div class="tool-icon purple">🎨</div>
+            <h3>Color Picker</h3>
+            <p class="category">Productivity</p>
+            <div class="tags">
+                <span class="tag">Free</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- EMPTY SEARCH -->
+
+    <div class="empty" id="emptyMessage">
+        <h2>No tools found!</h2>
+        <p>Try searching with another keyword.</p>
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer>
+        © 2026 FreeToolHub. Free tools for everyone.
+    </footer>
+
+</div>
+
+<script>
+
+// SEARCH AND CATEGORY FILTER
+
+const searchInput = document.getElementById("searchInput");
+const cards = document.querySelectorAll(".tool-card");
+const filterButtons = document.querySelectorAll(".filter-btn");
+const emptyMessage = document.getElementById("emptyMessage");
+const toolCount = document.getElementById("toolCount");
+
+let selectedCategory = "All";
+
+function filterTools() {
+
+    const searchText = searchInput.value.toLowerCase().trim();
+
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+
+        const name = card.innerText.toLowerCase();
+        const category = card.dataset.category;
+
+        const matchesSearch = name.includes(searchText);
+
+        const matchesCategory =
+            selectedCategory === "All" ||
+            category === selectedCategory;
+
+        const show = matchesSearch && matchesCategory;
+
+        card.style.display = show ? "block" : "none";
+
+        if (show) visibleCount++;
+
+    });
+
+    toolCount.textContent = visibleCount;
+
+    emptyMessage.style.display =
+        visibleCount === 0 ? "block" : "none";
+}
+
+searchInput.addEventListener("input", filterTools);
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        selectedCategory = button.dataset.category;
+
+        filterTools();
+
+    });
+
+});
+
+</script>
+
+
+<script>
+const toolRoutes={"PDF Converter":"pdf-converter.html","PDF Merger & Splitter":"pdf-merger-splitter.html","PDF Editor":"pdf-editor.html","PDF Compressor":"pdf-compressor.html","PDF Security":"pdf-security.html","BMI Calculator":"bmi-calculator.html","Age Calculator":"age-calculator.html","Currency Converter":"currency-converter.html","Unit Converter":"unit-converter.html","Tax Calculator":"tax-calculator.html","Percentage Calculator":"percentage-calculator.html","Loan Calculator":"loan-calculator.html","Word Counter":"word-counter.html","Case Converter":"case-converter.html","Image Resizer":"image-resizer.html","Image Compressor":"image-compressor.html","QR Code Generator":"qr-code-generator.html","Color Picker":"color-picker.html"};
+document.querySelectorAll('.tool-card').forEach(card=>{const title=card.querySelector('h3')?.textContent.trim();card.style.cursor='pointer';card.setAttribute('role','link');card.setAttribute('tabindex','0');const go=()=>{if(toolRoutes[title])location.href=toolRoutes[title]};card.addEventListener('click',go);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
+</script>
+
+</body>
+</html>
